@@ -1,4 +1,4 @@
 include ':app'
 include ':accountmgrtc'
 include ':ijkplayer-java'
-rootProject.name='IotVideo'
+rootProject.name='IotVideoDemo'
