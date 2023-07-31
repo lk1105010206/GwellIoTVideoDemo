@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_menu_change_hd"
+        android:orderInCategory="1"
+        android:title="HD"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_menu_change_sd"
+        android:orderInCategory="1"
+        android:title="SD"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_menu_change_ld"
+        android:orderInCategory="1"
+        android:title="LD"
+        app:showAsAction="never" />
+</menu>

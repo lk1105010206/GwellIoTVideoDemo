@@ -1,0 +1,216 @@
+package com.tencentcs.iotvideodemo.accountmgr.devicemanager;
+
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.tencentcs.iotvideo.IoTVideoSdk;
+import com.tencentcs.iotvideo.messagemgr.IModelListener;
+import com.tencentcs.iotvideo.messagemgr.ModelMessage;
+import com.tencentcs.iotvideo.utils.LogUtils;
+import com.tencentcs.iotvideo.utils.rxjava.IResultListener;
+import com.tencentcs.iotvideodemo.R;
+import com.tencentcs.iotvideodemo.base.BaseActivity;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+
+public class DeviceOTAActivity extends BaseActivity implements View.OnClickListener, IModelListener {
+    private static final String TAG = "DeviceOTAActivity";
+
+    private TextView mTvLatestVersion, mProgress;
+    private LinearLayout mLLVersionInfo;
+    private AlertDialog mCurrentAlertDialog;
+
+    private String mDeviceId = "";
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_device_ota);
+        mTvLatestVersion = findViewById(R.id.tv_latest_version);
+        mProgress = findViewById(R.id.tv_progress);
+        mLLVersionInfo = findViewById(R.id.ll_version_info);
+        findViewById(R.id.btn_get_latest_version).setOnClickListener(this);
+        findViewById(R.id.btn_check_network).setOnClickListener(this);
+        if (getIntent() != null) {
+            String devId = getIntent().getStringExtra("deviceID");
+            if (!TextUtils.isEmpty(devId)) {
+                mDeviceId = devId;
+                LogUtils.i(TAG, "mDeviceId = " + mDeviceId);
+            }
+        }
+        IoTVideoSdk.getMessageMgr().addModelListener(this);
+        getAllModeProperty();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        IoTVideoSdk.getMessageMgr().removeModelListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btn_get_latest_version) {
+            getLatestVersion();
+        } else if (v.getId() == R.id.btn_check_network) {
+            LogUtils.d(TAG, "startDetectDevNetwork mDeviceId：" + mDeviceId);
+            IoTVideoSdk.startDetectDevNetwork(mDeviceId, "www.baidu.com");
+        }
+    }
+
+    private void getLatestVersion() {
+        DeviceModelHelper.updateLatestVersion(mDeviceId, new IResultListener<ModelMessage>() {
+            @Override
+            public void onStart() {
+                LogUtils.i(TAG, "updateLatestVersion starr");
+            }
+
+            @Override
+            public void onSuccess(ModelMessage msg) {
+                LogUtils.i(TAG, "updateLatestVersion msg " + msg.toString());
+                Snackbar.make(mTvLatestVersion, "发送成功", Snackbar.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(int errorCode, String errorMsg) {
+                LogUtils.i(TAG, "updateLatestVersion error " + errorCode + " " + errorMsg);
+                Snackbar.make(mTvLatestVersion, "发送失败 " + errorCode + " " + errorMsg, Snackbar.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void sendOTARequest() {
+        DeviceModelHelper.startOTA(mDeviceId, new IResultListener<ModelMessage>() {
+            @Override
+            public void onStart() {
+                LogUtils.i(TAG, "startOTA start");
+            }
+
+            @Override
+            public void onSuccess(ModelMessage msg) {
+                LogUtils.i(TAG, "startOTA msg " + msg.toString());
+                Snackbar.make(mTvLatestVersion, "发送成功", Snackbar.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(int errorCode, String errorMsg) {
+                LogUtils.i(TAG, "startOTA error " + errorCode + " " + errorMsg);
+                Snackbar.make(mTvLatestVersion, "发送失败 " + errorCode + " " + errorMsg, Snackbar.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    @Override
+    public void onNotify(ModelMessage data) {
+        LogUtils.i(TAG, "onModeChanged deviceId:" + data.device + ", path:" + data.path + ", data:" + data.data);
+        if (TextUtils.isEmpty(data.data)) {
+            Snackbar.make(mTvLatestVersion, "服务器返回数据无效", Snackbar.LENGTH_LONG).show();
+            return;
+        }
+        if ("ProReadonly._otaVersion".equals(data.path) || "Action._otaVersion".equals(data.path)) {
+            JsonParser jsonParser = new JsonParser();
+            String version = jsonParser.parse(data.data).getAsJsonObject().get("stVal").getAsString();
+            if (TextUtils.isEmpty(version)) {
+                Snackbar.make(mTvLatestVersion, "固件端没有检查到更新的版本", Snackbar.LENGTH_LONG).show();
+
+            } else {
+                JsonElement element = DeviceModelManager.getInstance().getJsonElement(mDeviceId,"ProConst._versionInfo");
+                if (null == element) {
+                    LogUtils.i(TAG,"need get model data");
+                    getAllModeProperty();
+                    return;
+                }
+                JsonObject jsonObject = element.getAsJsonObject();
+
+                mLLVersionInfo.setVisibility(View.VISIBLE);
+                String currentVersion = jsonObject.get("swVer").getAsString();
+                LogUtils.i(TAG,"swVer:" + currentVersion + "; serverVersion:" + version);
+                int compareRet = -1;
+                // 如果采用"."进行版本分隔,则按"."拆分，按数字大小进行对比
+                if (currentVersion.contains(".") && version.contains(".")) {
+                    String[] currentVersionList = currentVersion.split("\\.");
+                    String[] serverVersionList = version.split("\\.");
+                    try {
+                        boolean hasCompareRet = false;
+                        for (int i = 0; i < currentVersionList.length && i < serverVersionList.length; i++) {
+                            compareRet = Integer.parseInt(serverVersionList[i]) - Integer.parseInt(currentVersionList[i]);
+                            if ( compareRet!= 0) {
+                                hasCompareRet= true;
+                                break;
+                            }
+                        }
+
+                        if (!hasCompareRet) {
+                            compareRet = serverVersionList.length - currentVersionList.length;
+                        }
+                    } catch (Exception exception) {
+                        LogUtils.e(TAG, "onNotify exception:" + exception.getMessage());
+                    }
+                }else{
+                   compareRet = version.compareTo(currentVersion);
+                }
+
+                if (compareRet == 0) {
+                    mTvLatestVersion.setText("已是最新版本");
+                    mProgress.setText(100 + "%");
+                }else if (compareRet > 0){
+                    mTvLatestVersion.setText(version);
+                    mProgress.setText(0 + "%");
+                    showOTADialog(version);
+                }
+            }
+        } else if ("ProReadonly._otaUpgrade".equals(data.path) || "Action._otaUpgrade".equals(data.path)) {
+            JsonParser jsonParser = new JsonParser();
+            String progress = jsonParser.parse(data.data).getAsJsonObject().get("stVal").getAsString();
+            mProgress.setText(progress + "%");
+        }
+    }
+
+    private void showOTADialog(String version) {
+        if (mCurrentAlertDialog != null && mCurrentAlertDialog.isShowing()) {
+            mCurrentAlertDialog.dismiss();
+        }
+        String msg = String.format("%s%s%s", "设备当前待更新版本：\n\n", version, "\n\n是否确认更新到该版本？");
+        mCurrentAlertDialog = new AlertDialog.Builder(this)
+                .setMessage(msg)
+                .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        sendOTARequest();
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(getString(R.string.cancel), null)
+                .show();
+    }
+
+    private void getAllModeProperty() {
+        //获取所有的物模型
+        IoTVideoSdk.getMessageMgr().readProperty(mDeviceId, "", new IResultListener<ModelMessage>() {
+            @Override
+            public void onStart() {
+
+            }
+
+            @Override
+            public void onSuccess(ModelMessage msg) {
+                DeviceModelManager.getInstance().onNotify(msg);
+                //ModelDataCache.getInstance().updateData(msg.data);
+            }
+
+            @Override
+            public void onError(int errorCode, String errorMsg) {
+                LogUtils.i(TAG,"getAllModeProperty onError,errorCode:" + errorCode + "; errorMsg:" + errorMsg);
+            }
+        });
+    }
+}

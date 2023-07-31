@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark">
+
+    <com.tencentcs.iotvideo.iotvideoplayer.iotview.IoTVideoRenderView
+        android:id="@+id/mRenderView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="H,16:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bt_upload_res"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="测试上传资源"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bt_query_all_res_list"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/bt_query_all_res_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="query all"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bt_query_url_by_res_id"
+        app:layout_constraintStart_toEndOf="@+id/bt_upload_res" />
+
+    <Button
+        android:id="@+id/bt_query_url_by_res_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="获取资源URL"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bt_delete_res"
+        app:layout_constraintStart_toEndOf="@+id/bt_query_all_res_list" />
+
+    <Button
+        android:id="@+id/bt_delete_res"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="删除资源"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bt_query_url_by_res_id" />
+
+
+    <Button
+        android:id="@+id/bt_update_res_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="更新资源描述"
+        app:layout_constraintBottom_toTopOf="@+id/bt_upload_res"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <SeekBar
+        android:id="@+id/sb_revise_view_size"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

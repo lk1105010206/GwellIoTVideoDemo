@@ -1,0 +1,42 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+    lintOptions {
+        abortOnError false
+    }
+    defaultConfig {
+        minSdkVersion 22
+        targetSdkVersion 29
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets.main {
+        jniLibs.srcDirs 'src/main/libs'
+        jni.srcDirs = [] // This prevents the auto generation of Android.mk
+    }
+
+    repositories {
+        flatDir {
+            dirs '../libs'
+        }
+    }
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.13'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.exoplayer:exoplayer:r1.5.11'
+
+    compileOnly (name: "iotvideo-release", ext: 'aar')
+}
+
+

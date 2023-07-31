@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_menu_monitor_player"
+        android:orderInCategory="1"
+        android:title="@string/player"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_menu_playback_player"
+        android:orderInCategory="1"
+        android:title="@string/local_playback"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_menu_model"
+        android:orderInCategory="1"
+        android:title="@string/device_model"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_menu_share"
+        android:orderInCategory="1"
+        android:title="@string/device_share"
+        android:visible="false"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_menu_vas"
+        android:orderInCategory="2"
+        android:title="@string/cloud_storage"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_menu_local_album"
+        android:orderInCategory="2"
+        android:title="@string/local_album"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_menu_unbind"
+        android:orderInCategory="2"
+        android:title="@string/delete_device"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_menu_other"
+        android:orderInCategory="2"
+        android:title="@string/senior"
+        app:showAsAction="never">
+
+        <menu>
+            <item
+                android:id="@+id/action_menu_multi_monitor"
+                android:orderInCategory="2"
+                android:title="@string/multi_monitor"
+                app:showAsAction="never"/>
+            <item
+                android:id="@+id/action_menu_ota"
+                android:orderInCategory="1"
+                android:title="@string/device_ota"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_menu_transmission_connection"
+                android:orderInCategory="1"
+                android:title="@string/transmission_connection"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_menu_nvr"
+                android:orderInCategory="2"
+                android:title="@string/nvr"
+                app:showAsAction="never"/>
+        </menu>
+    </item>
+</menu>

@@ -1,0 +1,124 @@
+<resources>
+    <string name="app_name">IoT Video Demo</string>
+    <string name="create_qrcode">create qr code</string>
+    <string name="accept_the_permissions">please accept the permission in settings</string>
+    <string name="player">monitor</string>
+    <string name="confirm">confirm</string>
+    <string name="cancel">cancel</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_retrieve_password">Retrieve password</string>
+    <string name="input_account">input account</string>
+    <string name="logout">Logout</string>
+    <string name="login_user_name_hint">phone or email</string>
+    <string name="login_user_name_password">password</string>
+    <string name="login_new_password">new password</string>
+    <string name="compare_password">password is not same</string>
+    <string name="action_sign_in">Login</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="register">Register</string>
+    <string name="error_no_password">Input your password</string>
+    <string name="input_vcode">please input verification code</string>
+    <string name="vcode_was_sent">verification code was sent</string>
+    <string name="wifi_name">wifi name</string>
+    <string name="location_permission_tip">need location permission before scanning wifi list</string>
+    <string name="net_config">Net config</string>
+    <string name="qrcode_net_config">QRCode</string>
+    <string name="ap_net_config">AP</string>
+    <string name="wired_net_config">Wired</string>
+    <string name="start_net_config">start net config</string>
+    <string name="find_device">Find Device</string>
+    <string name="click_to_bind">click to bind</string>
+    <string name="click_to_operate">operate</string>
+    <string name="device_share">device share</string>
+    <string name="you_are_not_owner">you are not the owner of the device</string>
+    <string name="share_to">share to</string>
+    <string name="fresh_qrcode">fresh QR Code</string>
+    <string name="account_hint">input account</string>Sh
+    <string name="account_share">account share</string>
+    <string name="qrcode_share">QR Code share</string>
+    <string name="success">success</string>
+    <string name="device_model">device_model</string>
+    <string name="local_monitor">local monitor</string>
+    <string name="share_list">share list</string>
+    <string name="flip_to_delete">flip to delete</string>
+    <string name="vas">vas</string>
+    <string name="local_playback">local playback</string>
+    <string name="copy_to_clipboard">copied</string>
+    <string name="effective_after_restarting">Switching service effective after restarting the application</string>
+    <string name="official_server">Official server</string>
+    <string name="test_server">Test server</string>
+    <string name="welcome"><u>Welcome</u></string>
+    <string name="more"><u>more</u></string>
+    <string name="cloud_storage">云存储</string>
+    <string name="delete_device">delete</string>
+    <string name="device_ota">OTA</string>
+    <string name="local_album">本地相册</string>
+    <string name="add_device">add device</string>
+    <string name="check">查看</string>
+    <string name="edit">编辑</string>
+    <string name="message_box">Message box</string>
+    <string name="send_netconfig_info">发送配网信息</string>
+    <string name="getting_netcofing_token">正在获取配网Token...</string>
+    <string name="transmission_connection">透传连接</string>
+    <string name="device_settings">设备设置</string>
+    <string name="senior">senior</string>
+    <string name="multi_monitor">同屏</string>
+    <string name="nvr">nvr</string>
+    <string name="login_anonymous">Anonymous Login</string>
+    <string name="cloud_video_area">ts列表</string>
+    <string name="cloud_play_url_list">m3u8列表</string>
+    <string name="cloud_event_list">事件列表</string>
+    <string name="app_env_setting">环境设置</string>
+    <string name="sdk_test_activity">测试页面</string>
+    <string name="query_playback_exist_date">查询录像存在日期</string>
+    <string name="select_query_date">选择查询日期</string>
+    <string name="playback_download_center">文件下载列表</string>
+
+    <string name="download_state_downloading">下载中...</string>
+    <string name="download_state_pause">暂停</string>
+    <string name="download_state_downloaded">下载完成</string>
+    <string name="download_state_failure">下载失败</string>
+
+    <string name="play_speed">倍速：</string>
+    <string name="play_stop">停止</string>
+    <string name="play_pause">暂停</string>
+    <string name="play_record">录像</string>
+    <string name="play_mute">静音</string>
+    <string name="play_screenshot">截图</string>
+    <string name="last_page">最后一页</string>
+    <string name="del_playback_list" >删除回放列表数据</string>
+    <string name="next_page">下一页</string>
+    <string name="previous_page">上一页</string>
+    <string name="first_page">第一页</string>
+    <string name="close_record">关闭设备录像</string>
+    <string name="open_record">打开设备录像</string>
+    <string name="fast_speed_play">倍速播放</string>
+    <string name="fast_play_input_tip">倍速输入(暂仅支持1,2,4,8,16)</string>
+    <string name="device_delete">删除设备</string>
+    <string name="device_delete_tip">确认删除当前设备么?</string>
+
+    <string-array name="play_back_play_strategy">
+        <item>升序(默认)</item>
+        <item>降序</item>
+        <item>单个播放</item>
+    </string-array>
+
+    <string name="same_play_strategy_with_last">和上一次选择的策略一样</string>
+    <string name="set_strategy_error_player_disconnected">播放器还未连接上设备</string>
+    <string name="setting_successfully">操作成功</string>
+    <string name="setting_failure">操作失败</string>
+
+    <string name="dialog_title_delete_download">删除下载项</string>
+    <string name="dialog_content_delete_download">确定删除当前选择的下载项吗？</string>
+    <string name="dialog_confirm">确定</string>
+    <string name="dialog_cancel">取消</string>
+
+    <string name="file_exist_download_list">文件存在下载队列中</string>
+    <string name="download_error_22060">下载失败（当前设备正在下载其他文件）</string>
+
+    <string name="cloud_speed_play_url_duration">时长:%ss</string>
+
+    <string name="check_hls_key">校验HLS Key</string>
+    <string name="txt_cancel_del_playback">取消删除回放</string>
+    <string name="toast_del_playback_success">删除回放成功！</string>
+</resources>

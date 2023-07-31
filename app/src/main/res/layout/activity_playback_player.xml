@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_content_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".videoplayer.PlaybackPlayerActivity">
+
+    <com.tencentcs.iotvideo.iotvideoplayer.IoTVideoView
+        android:id="@+id/tencentcs_gl_surface_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="H,16:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/playback_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/playback_selected_calendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/tencentcs_gl_surface_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/tv_test"
+        style="@style/DefaultButton"
+        android:layout_marginStart="8dp"
+        android:text="+5s"
+        app:layout_constraintEnd_toStartOf="@+id/tv_fast_play"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tencentcs_gl_surface_view" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/tv_fast_play"
+        style="@style/DefaultButton"
+        android:layout_marginStart="10dp"
+        android:text="@string/fast_speed_play"
+        app:layout_constraintEnd_toStartOf="@+id/textInputLayout"
+        app:layout_constraintStart_toEndOf="@+id/tv_test"
+        app:layout_constraintTop_toBottomOf="@+id/tencentcs_gl_surface_view" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="40dp"
+        android:hint="@string/fast_play_input_tip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/tv_fast_play"
+        app:layout_constraintTop_toBottomOf="@+id/tencentcs_gl_surface_view">
+
+        <EditText
+            android:id="@+id/speed_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/tv_start_record"
+        style="@style/DefaultButton"
+        android:text="@string/open_record"
+        app:layout_constraintEnd_toStartOf="@+id/tv_stop_record"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/tv_stop_record"
+        style="@style/DefaultButton"
+        android:text="@string/close_record"
+        app:layout_constraintEnd_toEndOf="@+id/sn_play_strategy"
+        app:layout_constraintStart_toEndOf="@+id/tv_start_record"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+    <Spinner
+        android:id="@+id/sn_play_strategy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_stop_record"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/tv_get_playback_first"
+        style="@style/DefaultButton"
+        android:text="@string/first_page"
+        app:layout_constraintEnd_toStartOf="@+id/tv_get_playback_previous"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_stop_record" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/tv_get_playback_previous"
+        style="@style/DefaultButton"
+        android:text="@string/previous_page"
+        app:layout_constraintEnd_toStartOf="@+id/tv_get_playback_next"
+        app:layout_constraintStart_toEndOf="@+id/tv_get_playback_first"
+        app:layout_constraintTop_toBottomOf="@+id/tv_stop_record" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/tv_get_playback_next"
+        style="@style/DefaultButton"
+        android:text="@string/next_page"
+        app:layout_constraintEnd_toStartOf="@+id/tv_get_playback_last"
+        app:layout_constraintStart_toEndOf="@+id/tv_get_playback_previous"
+        app:layout_constraintTop_toBottomOf="@+id/tv_stop_record" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/tv_get_playback_last"
+        style="@style/DefaultButton"
+        android:text="@string/last_page"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_get_playback_next"
+        app:layout_constraintTop_toBottomOf="@+id/tv_stop_record" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/tv_del_playback_list"
+        style="@style/DefaultButton"
+        android:text="@string/del_playback_list"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_get_playback_last" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/tv_cancel_del_playback"
+        style="@style/DefaultButton"
+        android:text="@string/txt_cancel_del_playback"
+        app:layout_constraintStart_toEndOf="@id/tv_del_playback_list"
+        android:layout_marginStart="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_get_playback_last" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/snap_btn"
+        style="@style/DefaultButton"
+        android:text="@string/play_screenshot"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/mute_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_get_playback_previous" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mute_btn"
+        style="@style/DefaultButton"
+        android:text="@string/play_mute"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/record_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/snap_btn"
+        app:layout_constraintTop_toTopOf="@+id/snap_btn" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/record_btn"
+        style="@style/DefaultButton"
+        android:text="@string/play_record"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/pause_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/mute_btn"
+        app:layout_constraintTop_toTopOf="@+id/snap_btn" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/pause_btn"
+        style="@style/DefaultButton"
+        android:text="@string/play_pause"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/stop_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/record_btn"
+        app:layout_constraintTop_toTopOf="@+id/snap_btn" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/stop_btn"
+        style="@style/DefaultButton"
+        android:text="@string/play_stop"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/pause_btn"
+        app:layout_constraintTop_toTopOf="@+id/snap_btn" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_playback_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/translucent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_del_playback_list" />
+
+    <TextView
+        android:id="@+id/tv_play_speed_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/play_speed"
+        android:textColor="@android:color/white"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playback_status" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
